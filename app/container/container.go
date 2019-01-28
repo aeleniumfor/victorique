@@ -7,6 +7,11 @@ type Container struct {
 	status string
 }
 
+type Containers struct {
+	host      string
+	container Container
+}
+
 func New() (c *Container) {
 	return &Container{}
 }

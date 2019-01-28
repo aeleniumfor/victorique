@@ -1,4 +1,14 @@
 package container
 
+import (
+	"context"
+	"fmt"
+	"net/http"
 
-func 
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/client"
+)
+
+func GetContainer(){
+	
+}

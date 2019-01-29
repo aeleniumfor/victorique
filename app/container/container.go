@@ -39,13 +39,20 @@ func Connect() (cli *client.Client) {
 	return cli
 }
 
-// GetContainer method is docker ps
-func (c *Container) GetContainer() {
+// GetContainerNameList method is docker ps
+func (c *Container) GetContainerNameList() {
+	containerlist := []string{}
 	cli := Connect()
 	containers, _ := cli.ContainerList(context.Background(), types.ContainerListOptions{})
+	for i, container := range containers {
+		fmt.Println(container.Names)
+		containerlist = append(containerlist, container.Names[0])
+		fmt.Println(i)
+	}
+	fmt.Println(containerlist)
 }
 
 func main() {
 	s := New()
-	s.GetContainer()
+	s.GetContainerNameList()
 }

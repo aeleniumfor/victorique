@@ -41,24 +41,8 @@ func Connect() (cli *client.Client) {
 
 // GetContainer method is docker ps
 func (c *Container) GetContainer() {
-	containerList := make(chan []types.Container)
-	connectList := []func(){
-		func() {
-			cli := Connect()
-			containers, _ := cli.ContainerList(context.Background(), types.ContainerListOptions{})
-			containerList <- containers
-		},
-	}
-	for _, i := range connectList {
-		go i()
-	}
-	for i := 0; i < len(connectList); i++ {
-		list := <-containerList
-		for j, container := range list {
-			fmt.Println(container.Image)
-			fmt.Println(j)
-		}
-	}
+	cli := Connect()
+	containers, _ := cli.ContainerList(context.Background(), types.ContainerListOptions{})
 }
 
 func main() {

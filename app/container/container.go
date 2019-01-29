@@ -36,6 +36,7 @@ func Connect() (cli *client.Client) {
 	return cli
 }
 
+// GetContainer method is docker ps 
 func (c *Container) GetContainer() {
 	connectList := 1
 	fmt.Println(connectList)

@@ -1,4 +1,4 @@
-package container
+package main
 
 import (
 	"fmt"
@@ -26,18 +26,28 @@ func New() (c *Container) {
 	return &Container{}
 }
 
-// Connect docker server
-func Connect() (cli *client.Client) {
-	tr := &http.Transport{}
-	cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
-	if err != nil {
-		panic(err)
+// GetContainer method is docker ps
+func (c *Container) GetContainer() {
+	connect := make(chan *client.Client)
+	connectList := []func(){
+		func() {
+			tr := &http.Transport{}
+			cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
+			if err != nil {
+				panic(err)
+			}
+			connect <- cli
+		},
 	}
-	return cli
+	for _, i := range connectList {
+		go i()
+	}
+	for i := 0; i < len(connectList); i++ {
+		fmt.Println(<-connect)
+	}
 }
 
-// GetContainer method is docker ps 
-func (c *Container) GetContainer() {
-	connectList := 1
-	fmt.Println(connectList)
+func main() {
+	s := New()
+	s.GetContainer()
 }

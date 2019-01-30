@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/docker/docker/api/types"
@@ -13,7 +12,7 @@ import (
 // Container type struct
 type Container struct {
 	id     string
-	name   string
+	name   []string
 	ip     string
 	status string
 }
@@ -39,17 +38,15 @@ func Connect() (cli *client.Client) {
 	return cli
 }
 
-// GetContainerNameList method is docker ps
-func (c *Container) GetContainerNameList() {
+// GetContainerNameList method is docker container name list
+func (c *Container) GetContainerNameList() []string {
 	containerlist := []string{}
 	cli := Connect()
 	containers, _ := cli.ContainerList(context.Background(), types.ContainerListOptions{})
-	for i, container := range containers {
-		fmt.Println(container.Names)
+	for _, container := range containers {
 		containerlist = append(containerlist, container.Names[0])
-		fmt.Println(i)
 	}
-	fmt.Println(containerlist)
+	return containerlist
 }
 
 func main() {

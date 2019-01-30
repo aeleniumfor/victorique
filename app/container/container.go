@@ -4,6 +4,8 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/docker/docker/api/types/container"
+
 	"github.com/docker/docker/api/types"
 
 	"github.com/docker/docker/client"
@@ -11,11 +13,9 @@ import (
 
 // Container type struct
 type Container struct {
-	id     string
-	name   string
-	ip     string
-	status string
-	cli    *client.Client
+	id      string
+	inspect types.ContainerJSON
+	cli     *client.Client
 }
 
 // Containers type struct
@@ -55,17 +55,23 @@ func (c *Container) GetContainerNameList() []string {
 	return containerlist
 }
 
-// ContainerIDtoName is Container ID convert Name
-func (c *Container) ContainerIDtoName() {
-
+// GetContainerInspect is Container inspect
+func (c *Container) GetContainerInspect() {
+	i, _ := c.cli.ContainerInspect(context.Background(), c.id)
+	c.inspect = i
 }
 
 // CreateContainer is Container create return Container ID
 func (c *Container) CreateContainer() {
-	
+	container, _ := c.cli.ContainerCreate(context.Background(), &container.Config{
+		Image: "alpine",
+	}, nil, nil, "container")
+	c.id = container.ID
 }
+
 
 func main() {
 	s := New()
-	s.GetContainerNameList()
+	s.CreateContainer()
+	s.GetContainerInspect()
 }

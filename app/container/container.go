@@ -12,9 +12,10 @@ import (
 // Container type struct
 type Container struct {
 	id     string
-	name   []string
+	name   string
 	ip     string
 	status string
+	cli    *client.Client
 }
 
 // Containers type struct
@@ -25,7 +26,13 @@ type Containers struct {
 
 // New Container struct
 func New() (c *Container) {
-	return &Container{}
+	tr := &http.Transport{}
+	cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
+	if err != nil {
+		panic(err)
+	}
+
+	return &Container{cli: cli}
 }
 
 // Connect docker server
@@ -41,12 +48,21 @@ func Connect() (cli *client.Client) {
 // GetContainerNameList method is docker container name list
 func (c *Container) GetContainerNameList() []string {
 	containerlist := []string{}
-	cli := Connect()
-	containers, _ := cli.ContainerList(context.Background(), types.ContainerListOptions{})
+	containers, _ := c.cli.ContainerList(context.Background(), types.ContainerListOptions{})
 	for _, container := range containers {
 		containerlist = append(containerlist, container.Names[0])
 	}
 	return containerlist
+}
+
+// ContainerIDtoName is Container ID convert Name
+func (c *Container) ContainerIDtoName() {
+
+}
+
+// CreateContainer is Container create return Container ID
+func (c *Container) CreateContainer() {
+	
 }
 
 func main() {

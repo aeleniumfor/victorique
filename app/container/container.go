@@ -69,9 +69,14 @@ func (c *Container) CreateContainer() {
 	c.id = container.ID
 }
 
+// Run Container is docker run
+func (c *Container) RunContainer() {
+	c.cli.ContainerStart(context.Background(), c.id, types.ContainerStartOptions{})
+}
 
 func main() {
 	s := New()
 	s.CreateContainer()
+	s.RunContainer()
 	s.GetContainerInspect()
 }

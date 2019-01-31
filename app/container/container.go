@@ -75,10 +75,11 @@ func (c *Container) RunContainer() {
 	c.cli.ContainerStart(context.Background(), c.id, types.ContainerStartOptions{})
 }
 
-func main() {
-	s := New()
-	s.CreateContainer()
-	s.RunContainer()
-	s.GetContainerInspect()
-	s.StopContainer()
-}
+//テスト環境が動かないためコメントで削除したことにしておく
+// func main() {
+// 	s := New()
+// 	s.CreateContainer()
+// 	s.RunContainer()
+// 	s.GetContainerInspect()
+// 	s.StopContainer()
+// }

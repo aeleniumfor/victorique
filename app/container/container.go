@@ -4,11 +4,10 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-
-	"github.com/docker/docker/api/types/container"
+	"time"
 
 	"github.com/docker/docker/api/types"
-
+	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 )
 
@@ -57,19 +56,17 @@ func (c *Container) CreateContainer() {
 	container, _ := c.cli.ContainerCreate(context.Background(), &container.Config{
 		Image: "alpine",
 		Tty:   true,
-	}, nil, nil, "container")
+	}, &container.HostConfig{
+		AutoRemove: true,
+	}, nil, "container")
 	c.id = container.ID
 }
 
 // StopContainer is docker stop <id>
 func (c *Container) StopContainer() {
+	time.Sleep(4)
 	fmt.Println(c.id)
 	c.cli.ContainerStop(context.Background(), c.id, nil)
-	errr := c.cli.ContainerRemove(context.Background(), c.id, types.ContainerRemoveOptions{
-		RemoveVolumes: true,
-		RemoveLinks:   true,
-		Force:         false,
-	})
 	fmt.Println(errr)
 }
 

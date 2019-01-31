@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/docker/docker/api/types/container"
@@ -62,7 +63,14 @@ func (c *Container) CreateContainer() {
 
 // StopContainer is docker stop <id>
 func (c *Container) StopContainer() {
+	fmt.Println(c.id)
 	c.cli.ContainerStop(context.Background(), c.id, nil)
+	errr := c.cli.ContainerRemove(context.Background(), c.id, types.ContainerRemoveOptions{
+		RemoveVolumes: true,
+		RemoveLinks:   true,
+		Force:         false,
+	})
+	fmt.Println(errr)
 }
 
 // RunContainer is docker run
@@ -73,6 +81,7 @@ func (c *Container) RunContainer() {
 func main() {
 	s := New()
 	s.CreateContainer()
-	//s.RunContainer()
+	s.RunContainer()
 	s.GetContainerInspect()
+	s.StopContainer()
 }

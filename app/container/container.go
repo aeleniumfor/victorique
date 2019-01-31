@@ -67,7 +67,6 @@ func (c *Container) StopContainer() {
 	time.Sleep(4)
 	fmt.Println(c.id)
 	c.cli.ContainerStop(context.Background(), c.id, nil)
-	fmt.Println(errr)
 }
 
 // RunContainer is docker run

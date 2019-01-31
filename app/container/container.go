@@ -73,7 +73,15 @@ func (c *Container) RunContainer() {
 	c.cli.ContainerStart(context.Background(), c.id, types.ContainerStartOptions{})
 }
 
-
+// ListContainer is docker ps
+func (c *Container) ListContainer() (NameList []string) {
+	list, _ := c.cli.ContainerList(context.Background(), types.ContainerListOptions{})
+	ContainerNameList := []string{}
+	for _, container := range list {
+		ContainerNameList = append(ContainerNameList, container.Names[0])
+	}
+	return ContainerNameList
+}
 
 //テスト環境が動かないためコメントで削除したことにしておく
 // func main() {

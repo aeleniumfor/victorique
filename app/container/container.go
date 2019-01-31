@@ -52,7 +52,7 @@ func (c *Container) GetContainerInspect() {
 }
 
 // CreateContainer is Container create return Container ID
-func (c *Container) CreateContainer() {
+func (c *Container) CreateContainer() (ConrainerID string) {
 	container, _ := c.cli.ContainerCreate(context.Background(), &container.Config{
 		Image: "alpine",
 		Tty:   true,
@@ -60,6 +60,7 @@ func (c *Container) CreateContainer() {
 		AutoRemove: true,
 	}, nil, "container")
 	c.id = container.ID
+	return c.id
 }
 
 // StopContainer is docker stop <id>

@@ -65,7 +65,6 @@ func (c *Container) CreateContainer() (ConrainerID string) {
 
 // StopContainer is docker stop <id>
 func (c *Container) StopContainer() {
-	time.Sleep(4)
 	fmt.Println(c.id)
 	c.cli.ContainerStop(context.Background(), c.id, nil)
 }

@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
@@ -65,7 +64,6 @@ func (c *Container) CreateContainer() (ConrainerID string) {
 
 // StopContainer is docker stop <id>
 func (c *Container) StopContainer() {
-	time.Sleep(4)
 	fmt.Println(c.id)
 	c.cli.ContainerStop(context.Background(), c.id, nil)
 }
@@ -75,10 +73,11 @@ func (c *Container) RunContainer() {
 	c.cli.ContainerStart(context.Background(), c.id, types.ContainerStartOptions{})
 }
 
-func main() {
-	s := New()
-	s.CreateContainer()
-	s.RunContainer()
-	s.GetContainerInspect()
-	s.StopContainer()
-}
+//テスト環境が動かないためコメントで削除したことにしておく
+// func main() {
+// 	s := New()
+// 	s.CreateContainer()
+// 	s.RunContainer()
+// 	s.GetContainerInspect()
+// 	s.StopContainer()
+// }

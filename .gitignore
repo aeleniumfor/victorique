@@ -20,3 +20,6 @@
 !.vscode/extensions.json
 
 .idea/
+.vscode/
+/vendor
+Gopkg.*

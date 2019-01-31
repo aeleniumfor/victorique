@@ -35,16 +35,6 @@ func New() (c *Container) {
 	return &Container{cli: cli}
 }
 
-// Connect docker server
-func Connect() (cli *client.Client) {
-	tr := &http.Transport{}
-	cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
-	if err != nil {
-		panic(err)
-	}
-	return cli
-}
-
 // GetContainerNameList method is docker container name list
 func (c *Container) GetContainerNameList() []string {
 	containerlist := []string{}
@@ -65,8 +55,14 @@ func (c *Container) GetContainerInspect() {
 func (c *Container) CreateContainer() {
 	container, _ := c.cli.ContainerCreate(context.Background(), &container.Config{
 		Image: "alpine",
+		Tty:   true,
 	}, nil, nil, "container")
 	c.id = container.ID
+}
+
+// StopContainer is docker stop <id>
+func (c *Container) StopContainer() {
+	c.cli.ContainerStop(context.Background(), c.id, nil)
 }
 
 // RunContainer is docker run
@@ -77,6 +73,6 @@ func (c *Container) RunContainer() {
 func main() {
 	s := New()
 	s.CreateContainer()
-	s.RunContainer()
+	//s.RunContainer()
 	s.GetContainerInspect()
 }

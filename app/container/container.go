@@ -73,6 +73,8 @@ func (c *Container) RunContainer() {
 	c.cli.ContainerStart(context.Background(), c.id, types.ContainerStartOptions{})
 }
 
+
+
 //テスト環境が動かないためコメントで削除したことにしておく
 // func main() {
 // 	s := New()

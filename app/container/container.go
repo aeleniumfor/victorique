@@ -12,6 +12,7 @@ import (
 
 // Container type struct
 type Container struct {
+	name    string
 	id      string
 	inspect types.ContainerJSON
 	cli     *client.Client
@@ -51,13 +52,14 @@ func (c *Container) GetContainerInspect() {
 }
 
 // CreateContainer is Container create return Container ID
-func (c *Container) CreateContainer() (ConrainerID string) {
+func (c *Container) CreateContainer(containerName string) (ConrainerID string) {
 	container, _ := c.cli.ContainerCreate(context.Background(), &container.Config{
 		Image: "alpine",
 		Tty:   true,
 	}, &container.HostConfig{
 		AutoRemove: true,
-	}, nil, "container")
+	}, nil, containerName)
+	c.name = containerName
 	c.id = container.ID
 	return c.id
 }

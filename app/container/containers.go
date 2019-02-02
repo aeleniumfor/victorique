@@ -4,7 +4,8 @@ import "fmt"
 
 // Containers type struct
 type Containers struct {
-	hostList []string
+	hostList       []string
+	hostContainers []HostContainer
 }
 
 // HostContainer type struct
@@ -46,6 +47,7 @@ func (c *Containers) GetMultiHostContainerList() (ContainerList []HostContainer)
 		HostList = append(HostList, <-containerList)
 	}
 	fmt.Println(HostList)
+	c.hostContainers = HostList
 	return HostList
 }
 

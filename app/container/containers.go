@@ -51,6 +51,11 @@ func (c *Containers) GetMultiHostContainerList() (ContainerList []HostContainer)
 	return HostList
 }
 
+// DecisionPriority is docker create
+func (c *Containers) DecisionPriority() {
+
+}
+
 // 	s.CreateContainer()
 // 	s.RunContainer()
 // 	s.GetContainerInspect()

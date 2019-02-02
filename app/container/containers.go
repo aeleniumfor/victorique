@@ -28,9 +28,10 @@ func (c *Containers) GetMultiHostContainer() {
 	}
 	finished := make(chan bool)
 	for i := 0; i < len(hostname); i++ {
-		go func() {
+		go func(i int) {
+			fmt.Println(i)
 			finished <- true
-		}()
+		}(i)
 	}
 
 	for i := 0; i < len(hostname); i++ {

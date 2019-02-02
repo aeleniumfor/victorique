@@ -39,14 +39,14 @@ func (c *Containers) GetMultiHostContainerList() (ContainerList []HostContainer)
 	}
 
 	// 構造体のスライスを作成する
-	HostList := []HostContainer{}
+	HostContainerListSliece := []HostContainer{}
 	// 並列化したものをこっちにもってくる処理
 	for i := 0; i < len(c.hostList); i++ {
 		// TODO: これの処理は果たしてベストなのか?
-		HostList = append(HostList, <-containerList)
+		HostContainerListSliece = append(HostContainerListSliece, <-containerList)
 	}
-	fmt.Println(HostList)
-	return HostList
+	fmt.Println(HostContainerListSliece)
+	return HostContainerListSliece
 }
 
 // 	s.CreateContainer()

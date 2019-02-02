@@ -19,7 +19,7 @@ func (c *Containers) SetHostList(host []string) {
 	fmt.Println(c.host)
 }
 
-// GetMultiHostContainerlist is docker ps s
+// GetMultiHostContainerList is docker ps s
 func (c *Containers) GetMultiHostContainerList() {
 	hostname := c.host
 	containerList := make(chan []string)

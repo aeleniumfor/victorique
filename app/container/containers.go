@@ -4,8 +4,9 @@ import "fmt"
 
 // Containers type struct
 type Containers struct {
-	host      []string
-	container Container
+	hostList  []string
+	host      string
+	container []Container
 }
 
 // ContainersNew is
@@ -14,28 +15,26 @@ func ContainersNew() (c *Containers) {
 }
 
 // SetHostList is
-func (c *Containers) SetHostList(host []string) {
-	c.host = host
+func (c *Containers) SetHostList(hostList []string) {
+	c.hostList = hostList
 	fmt.Println(c.host)
 }
 
 // GetMultiHostContainerList is docker ps s
 func (c *Containers) GetMultiHostContainerList() {
-	hostname := c.host
 	containerList := make(chan []string)
-
 	// 並列化する処理
-	for i := 0; i < len(hostname); i++ {
+	for i := 0; i < len(c.hostList); i++ {
 		go func(i int) {
 			fmt.Println(i)
-			s := New(hostname[i])
+			s := New(c.hostList[i])
 			fmt.Println(s)
 			containerList <- s.ListContainer()
 		}(i)
 	}
 
 	// 並列化したものをこっちにもってくる処理
-	for i := 0; i < len(hostname); i++ {
+	for i := 0; i < len(c.hostList); i++ {
 		fmt.Println(<-containerList)
 	}
 

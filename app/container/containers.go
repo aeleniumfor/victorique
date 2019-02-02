@@ -23,6 +23,8 @@ func (c *Containers) SetHostList(host []string) {
 func (c *Containers) GetMultiHostContainerList() {
 	hostname := c.host
 	containerList := make(chan []string)
+
+	// 並列化する処理
 	for i := 0; i < len(hostname); i++ {
 		go func(i int) {
 			fmt.Println(i)
@@ -32,7 +34,7 @@ func (c *Containers) GetMultiHostContainerList() {
 		}(i)
 	}
 
-	//並列化したものをこっちにもってくる処理
+	// 並列化したものをこっちにもってくる処理
 	for i := 0; i < len(hostname); i++ {
 		fmt.Println(<-containerList)
 	}

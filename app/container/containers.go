@@ -19,10 +19,6 @@ func (c *Containers) SetHostList(host []string) {
 	fmt.Println(c.host)
 }
 
-func pset() {
-	fmt.Println("3")
-}
-
 // GetMultiHostContainer is docker ps s
 func (c *Containers) GetMultiHostContainer() {
 	hostname := c.host
@@ -30,7 +26,19 @@ func (c *Containers) GetMultiHostContainer() {
 		s := New(hostname[i])
 		fmt.Println(s)
 	}
-	
+	finished := make(chan bool)
+	for i := 0; i < len(hostname); i++ {
+		go func() {
+			finished <- true
+		}()
+	}
+
+	for i := 0; i < len(hostname); i++ {
+		fmt.Println(<-finished)
+	}
+
+	fmt.Println("finished")
+
 }
 
 // 	s.CreateContainer()

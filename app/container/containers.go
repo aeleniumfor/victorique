@@ -38,14 +38,14 @@ func (c *Containers) GetMultiHostContainerList() {
 		}(i)
 	}
 
+	// 構造体のスライスを作成する
 	HostList := []HostContainer{}
 	// 並列化したものをこっちにもってくる処理
 	for i := 0; i < len(c.hostList); i++ {
+		// TODO: これの処理は果たしてベストなのか?
 		HostList = append(HostList,<-containerList)
 	}
 	fmt.Println(HostList)
-	fmt.Println("finished")
-
 }
 
 // 	s.CreateContainer()

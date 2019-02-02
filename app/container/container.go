@@ -18,20 +18,13 @@ type Container struct {
 	cli     *client.Client
 }
 
-// Containers type struct
-type Containers struct {
-	host      string
-	container Container
-}
-
 // New Container struct
-func New() (c *Container) {
+func New(hostname string) (c *Container) {
 	tr := &http.Transport{}
-	cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
+	cli, err := client.NewClient(hostname+":2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		panic(err)
 	}
-
 	return &Container{cli: cli}
 }
 

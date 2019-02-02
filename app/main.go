@@ -1,27 +1,27 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"net/http"
-
-	"github.com/docker/docker/api/types"
-	"github.com/docker/docker/client"
+	"github.com/victorique/app/container"
 )
 
 func main() {
 
-	tr := &http.Transport{}
-	cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
-	if err != nil {
-		panic(err)
-	}
+	// tr := &http.Transport{}
+	// cli, err := client.NewClient("http://localhost:2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
+	// containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
 
-	for i, container := range containers {
-		fmt.Println(container.Image)
-		fmt.Println(i)
-	}
+	// for i, container := range containers {
+	// 	fmt.Println(container.Image)
+	// 	fmt.Println(i)
+	// }
+
+	c := container.ContainersNew()
+	host := []string{"http://localhost", "http://127.0.0.1"}
+	c.SetHostList(host)
+	c.GetMultiHostContainerList()
 
 }

@@ -29,7 +29,6 @@ func (c *Containers) GetMultiHostContainerList() {
 			fmt.Println(i)
 			s := New(c.hostList[i])
 			fmt.Println(s)
-
 			containerList <- s.ListContainer()
 		}(i)
 	}

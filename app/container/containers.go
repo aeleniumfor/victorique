@@ -22,14 +22,12 @@ func (c *Containers) SetHostList(host []string) {
 // GetMultiHostContainer is docker ps s
 func (c *Containers) GetMultiHostContainer() {
 	hostname := c.host
-	for i := 0; i < len(hostname); i++ {
-		s := New(hostname[i])
-		fmt.Println(s)
-	}
 	finished := make(chan bool)
 	for i := 0; i < len(hostname); i++ {
 		go func(i int) {
 			fmt.Println(i)
+			s := New(hostname[i])
+			fmt.Println(s)
 			finished <- true
 		}(i)
 	}

@@ -16,6 +16,7 @@ func ContainersNew() (c *Containers) {
 // SetHostList is
 func (c *Containers) SetHostList(host []string) {
 	c.host = host
+	fmt.Println(c.host)
 }
 
 // GetMultiHostContainer is docker ps s
@@ -31,3 +32,7 @@ func (c *Containers) GetMultiHostContainer() {
 // 	s.RunContainer()
 // 	s.GetContainerInspect()
 // 	s.StopContainer()
+
+func main() {
+	
+}

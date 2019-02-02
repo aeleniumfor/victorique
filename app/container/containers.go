@@ -25,7 +25,7 @@ func (c *Containers) SetHostList(hostList []string) {
 }
 
 // GetMultiHostContainerList is docker ps s
-func (c *Containers) GetMultiHostContainerList() {
+func (c *Containers) GetMultiHostContainerList() (ContainerList []HostContainer) {
 	containerList := make(chan HostContainer)
 	// 並列化する処理
 	for i := 0; i < len(c.hostList); i++ {
@@ -43,9 +43,10 @@ func (c *Containers) GetMultiHostContainerList() {
 	// 並列化したものをこっちにもってくる処理
 	for i := 0; i < len(c.hostList); i++ {
 		// TODO: これの処理は果たしてベストなのか?
-		HostList = append(HostList,<-containerList)
+		HostList = append(HostList, <-containerList)
 	}
 	fmt.Println(HostList)
+	return HostList
 }
 
 // 	s.CreateContainer()

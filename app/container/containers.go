@@ -7,6 +7,12 @@ type Containers struct {
 	hostList []string
 }
 
+// HostContainer type struct
+type HostContainer struct {
+	host          string
+	containerName []string
+}
+
 // ContainersNew is
 func ContainersNew() (c *Containers) {
 	return &Containers{}
@@ -20,22 +26,24 @@ func (c *Containers) SetHostList(hostList []string) {
 
 // GetMultiHostContainerList is docker ps s
 func (c *Containers) GetMultiHostContainerList() {
-	containerList := make(chan []string)
+	containerList := make(chan HostContainer)
 	// 並列化する処理
 	for i := 0; i < len(c.hostList); i++ {
 		go func(i int) {
-			fmt.Println(i)
+			hostContainerList := HostContainer{}
 			s := New(c.hostList[i])
-			fmt.Println(s)
-			containerList <- s.ListContainer()
+			hostContainerList.host = c.hostList[i]
+			hostContainerList.containerName = s.ListContainer()
+			containerList <- hostContainerList
 		}(i)
 	}
 
+	HostList := []HostContainer{}
 	// 並列化したものをこっちにもってくる処理
 	for i := 0; i < len(c.hostList); i++ {
-		fmt.Println(<-containerList)
+		HostList = append(HostList,<-containerList)
 	}
-
+	fmt.Println(HostList)
 	fmt.Println("finished")
 
 }

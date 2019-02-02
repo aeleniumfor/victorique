@@ -23,12 +23,14 @@ func (c *Containers) SetHostList(hostList []string) {
 // GetMultiHostContainerList is docker ps s
 func (c *Containers) GetMultiHostContainerList() {
 	containerList := make(chan []string)
+	containerHost := make(chan string)
 	// 並列化する処理
 	for i := 0; i < len(c.hostList); i++ {
 		go func(i int) {
 			fmt.Println(i)
 			s := New(c.hostList[i])
 			fmt.Println(s)
+			containerHost <- c.hostList[i]
 			containerList <- s.ListContainer()
 		}(i)
 	}
@@ -36,6 +38,7 @@ func (c *Containers) GetMultiHostContainerList() {
 	// 並列化したものをこっちにもってくる処理
 	for i := 0; i < len(c.hostList); i++ {
 		fmt.Println(<-containerList)
+		fmt.Println(<-containerHost)
 	}
 
 	fmt.Println("finished")

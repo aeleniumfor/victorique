@@ -20,7 +20,7 @@ func main() {
 	// }
 
 	c := container.ContainersNew()
-	host := []string{"http://localhost", "http://127.0.0.1"}
+	host := []string{"localhost", "127.0.0.1", "localhost"}
 	c.SetHostList(host)
 	c.GetMultiHostContainerList()
 

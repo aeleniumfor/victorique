@@ -21,7 +21,9 @@ type Container struct {
 // New Container struct
 func New(hostname string) (c *Container) {
 	tr := &http.Transport{}
-	cli, err := client.NewClient(hostname+":2375", client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
+	hostname = "http://" + hostname + ":2375"
+	fmt.Println(hostname)
+	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		panic(err)
 	}

@@ -32,6 +32,7 @@ func (c *Containers) GetMultiHostContainerList() {
 		}(i)
 	}
 
+	//並列化したものをこっちにもってくる処理
 	for i := 0; i < len(hostname); i++ {
 		fmt.Println(<-containerList)
 	}

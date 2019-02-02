@@ -4,9 +4,7 @@ import "fmt"
 
 // Containers type struct
 type Containers struct {
-	hostList  []string
-	host      string
-	container []Container
+	hostList []string
 }
 
 // ContainersNew is
@@ -17,7 +15,7 @@ func ContainersNew() (c *Containers) {
 // SetHostList is
 func (c *Containers) SetHostList(hostList []string) {
 	c.hostList = hostList
-	fmt.Println(c.host)
+	fmt.Println(c.hostList)
 }
 
 // GetMultiHostContainerList is docker ps s

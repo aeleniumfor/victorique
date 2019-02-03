@@ -53,6 +53,7 @@ func (c *Containers) GetMultiHostContainerList() (ContainerList []HostContainer)
 
 // DecisionPriority is docker create
 func (c *Containers) DecisionPriority() {
+	// TODO 優先順位をどうやって決めるか考え中
 	// for i := 0; i < len(c.hostContainers); i++ {
 	// 	list := c.hostContainers[i].containerName
 	// }

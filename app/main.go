@@ -23,5 +23,5 @@ func main() {
 	host := []string{"localhost", "127.0.0.1", "localhost"}
 	c.SetHostList(host)
 	c.GetMultiHostContainerList()
-
+	c.DecisionPriority()
 }

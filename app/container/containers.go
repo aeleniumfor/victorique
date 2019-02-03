@@ -53,10 +53,11 @@ func (c *Containers) GetMultiHostContainerList() (ContainerList []HostContainer)
 
 // DecisionPriority is docker create
 func (c *Containers) DecisionPriority() {
-	for i := 0; i < len(c.hostContainers); i++ {
-		list := c.hostContainers[i].containerName
-		fmt.Println(len(list))
-	}
+	// for i := 0; i < len(c.hostContainers); i++ {
+	// 	list := c.hostContainers[i].containerName
+	// }
+	c.hostContainers = c.hostContainers
+	fmt.Println(c.hostContainers)
 }
 
 // 	s.CreateContainer()

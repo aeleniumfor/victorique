@@ -11,6 +11,7 @@ import (
 // Containers is managed
 type Containers struct {
 	host      string
+	cli     *client.Client
 	Container []Container
 }
 
@@ -19,7 +20,6 @@ type Container struct {
 	name    string
 	id      string
 	inspect types.ContainerJSON
-	cli     *client.Client
 }
 
 // New is

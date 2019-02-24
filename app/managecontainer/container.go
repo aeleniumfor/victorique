@@ -11,22 +11,10 @@ import (
 )
 
 // Container type struct
-type Container struct {
-	name    string
-	id      string
-	inspect types.ContainerJSON
-	cli     *client.Client
-}
 
 // New Container struct
-func New(hostname string) (c *Container) {
-	tr := &http.Transport{}
-	hostname = "http://" + hostname + ":2375"
-	fmt.Println(hostname)
-	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
-	if err != nil {
-		panic(err)
-	}
+func Newf(hostname string) (c *Container) {
+
 	return &Container{cli: cli}
 }
 

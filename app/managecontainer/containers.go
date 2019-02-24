@@ -1,22 +1,36 @@
 package managecontainer
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
 
-// Containers type struct
+	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/client"
+)
+
+// Containers is managed
 type Containers struct {
-	hostList       []string
-	hostContainers []HostContainer
+	host      string
+	Container []Container
 }
 
-// HostContainer type struct
-type HostContainer struct {
-	host          string
-	containerName []string
+// Container is managed
+type Container struct {
+	name    string
+	id      string
+	inspect types.ContainerJSON
+	cli     *client.Client
 }
 
-// ContainersNew is
-func ContainersNew() (c *Containers) {
-	return &Containers{}
+// New is
+func New() (c *Containers) {
+	tr := &http.Transport{}
+	hostname := "http://localhost:2375"
+	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
+	if err != nil {
+		panic(err)
+	}
+	return &Container{cli: cli}
 }
 
 // SetHostList is

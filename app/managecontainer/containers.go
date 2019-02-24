@@ -11,7 +11,7 @@ import (
 // Containers is managed
 type Containers struct {
 	host      string
-	cli     *client.Client
+	client     *client.Client
 	Container []Container
 }
 

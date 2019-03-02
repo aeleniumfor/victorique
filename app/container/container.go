@@ -25,7 +25,7 @@ type Container struct {
 }
 
 // New is manager
-func New(hostlist []string) (c *Containers) {
+func New() (c *Containers) {
 	tr := &http.Transport{}
 	hostname := "http://localhost:2375"
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
@@ -37,6 +37,6 @@ func New(hostlist []string) (c *Containers) {
 
 // GetContainerList is multi host get container list
 func (c *Containers) GetContainerList() {
-	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{})
+	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	fmt.Println(containers)
 }

@@ -19,9 +19,6 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
-	c := container.ContainersNew()
-	host := []string{"localhost", "127.0.0.1", "localhost"}
-	c.SetHostList(host)
-	c.GetMultiHostContainerList()
-	c.DecisionPriority()
+	c := container.New()
+	c.GetContainerList()
 }

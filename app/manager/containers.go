@@ -26,7 +26,6 @@ type Container struct {
 
 // New is manager
 func New() (c *Containers) {
-	log.Println(1)
 	tr := &http.Transport{}
 	hostname := "http://localhost:2375"
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})

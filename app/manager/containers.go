@@ -10,6 +10,11 @@ import (
 	"github.com/docker/docker/client"
 )
 
+// Manager is 
+type Manager struct {
+	MultiContainers []Containers
+}
+
 // Containers is managed
 type Containers struct {
 	host      string

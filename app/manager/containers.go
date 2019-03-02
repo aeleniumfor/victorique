@@ -1,6 +1,8 @@
 package manager
 
 import (
+	"context"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -35,8 +37,9 @@ func New() (c *Containers) {
 }
 
 // GetContainerList is multi host get container list
-func (c *Containers)GetContainerList(){
-	
+func (c *Containers) GetContainerList() {
+	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{})
+	fmt.Println(containers)
 }
 
 // SetHostList is

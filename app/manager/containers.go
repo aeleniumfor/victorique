@@ -9,12 +9,6 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 )
-
-// Manager is
-type Manager struct {
-	MultiContainers []Containers
-}
-
 // Containers is managed
 type Containers struct {
 	host      string
@@ -30,14 +24,14 @@ type Container struct {
 }
 
 // New is manager
-func New(hostlist []string) (c *Manager) {
+func New(hostlist []string) (c *Containers) {
 	tr := &http.Transport{}
 	hostname := "http://localhost:2375"
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		log.Println(err)
 	}
-	return 
+	return &Containers{client: cli}
 }
 
 // GetContainerList is multi host get container list

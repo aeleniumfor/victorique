@@ -10,7 +10,7 @@ import (
 	"github.com/docker/docker/client"
 )
 
-// Manager is 
+// Manager is
 type Manager struct {
 	MultiContainers []Containers
 }
@@ -30,14 +30,14 @@ type Container struct {
 }
 
 // New is manager
-func New() (c *Containers) {
+func New(hostlist []string) (c *Manager) {
 	tr := &http.Transport{}
 	hostname := "http://localhost:2375"
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		log.Println(err)
 	}
-	return &Containers{client: cli}
+	return 
 }
 
 // GetContainerList is multi host get container list

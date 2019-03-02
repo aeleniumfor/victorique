@@ -1,4 +1,4 @@
-package managecontainer
+package manager
 
 import (
 	"log"
@@ -22,7 +22,7 @@ type Container struct {
 	inspect types.ContainerJSON
 }
 
-// New is
+// New is manager
 func New() (c *Containers) {
 	log.Println(1)
 	tr := &http.Transport{}
@@ -34,7 +34,12 @@ func New() (c *Containers) {
 	return &Containers{client: cli}
 }
 
-// // SetHostList is
+// GetContainerList is multi host get container list
+func (c *Containers)GetContainerList(){
+	
+}
+
+// SetHostList is
 // func (c *Containers) SetHostList(hostList []string) {
 // 	c.hostList = hostList
 // 	fmt.Println(c.hostList)

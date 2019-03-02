@@ -1,11 +1,10 @@
-package managecontainer
+package manager
 
 import (
-	"fmt"
 	"testing"
 )
 
 
 func TestNew(t *testing.T) {
-	c := New()
+	New()
 }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
+	"github.com/victorique/app/handler"
 )
 
 // Containers is managed
@@ -27,7 +28,7 @@ type Container struct {
 // New is manager
 func New() (c *Containers) {
 	tr := &http.Transport{}
-	hostname := "http://localhost:2375"
+	hostname := "http://localhost:2376"
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		log.Println(err)
@@ -36,7 +37,12 @@ func New() (c *Containers) {
 }
 
 // GetContainerList is multi host get container list
-func (c *Containers) GetContainerList() {
+func (c *Containers) GetContainerList() []string {
+	containerList := []string{}
 	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
-	fmt.Println(containers)
+	for _, container := range containers {
+		containerList = append(containerList, container.Names[0])
+	}
+	fmt.Println(containerList)
+	return containerList
 }

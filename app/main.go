@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/victorique/app/handler"
 	"github.com/victorique/app/container"
 )
 
@@ -19,6 +20,6 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
-	c := container.New()
-	c.GetContainerList()
+	var c handler.ContainerHandler
+
 }

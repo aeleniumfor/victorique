@@ -1,6 +1,6 @@
 package handler
 
-// ContainerHandler is pacage container 
+// ContainerHandler is pacage container
 type ContainerHandler interface {
-	
+	GetContainer() []string
 }

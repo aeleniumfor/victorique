@@ -13,7 +13,7 @@ import (
 type Containers struct {
 	host      string
 	client    *client.Client
-	Container []Container
+	Container []Container // slice
 }
 
 // Container is managed
@@ -31,17 +31,16 @@ func New() (c *Containers) {
 	if err != nil {
 		log.Println(err)
 	}
-	return &Containers{client: cli}
+	return &Containers{host: hostname,client: cli}
 }
 
 // GetContainerList is multi host get container list
 func (c *Containers) GetContainerList() []string {
-	containerList := []string{}
 	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	containerCount := len(containers)
+	c.Container
 	for _, container := range containers {
-		containerList = append(containerList, container.Names[0])
+		c.Container = append(c.Container, container.Names[0])
 	}
 	return containerList
 }
-
-

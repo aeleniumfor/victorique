@@ -21,6 +21,7 @@ type Containers struct {
 type Container struct {
 	Name string
 	ID   string
+	IP   string
 }
 
 // New is manager
@@ -41,10 +42,10 @@ func (c *Containers) GetContainerList() []string {
 		List := Container{
 			list[i].Names[0],
 			list[i].ID,
+			list[i].NetworkSettings.Networks["bridge"].IPAddress,
 		}
-
 		c.Container = append(c.Container, List)
-		fmt.Println(list[i].NetworkSettings.Networks)
+		fmt.Println()
 
 	}
 

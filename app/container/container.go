@@ -19,7 +19,7 @@ type Containers struct {
 // Container is managed
 type Container struct {
 	Name    string
-	Id      string
+	ID      string
 	Inspect types.ContainerJSON
 }
 

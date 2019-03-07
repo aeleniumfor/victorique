@@ -18,9 +18,9 @@ type Containers struct {
 
 // Container is managed
 type Container struct {
-	name    string
-	id      string
-	inspect types.ContainerJSON
+	Name    string
+	Id      string
+	Inspect types.ContainerJSON
 }
 
 // New is manager
@@ -37,8 +37,6 @@ func New() (c *Containers) {
 // GetContainerList is multi host get container list
 func (c *Containers) GetContainerList() []string {
 	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
-	containerCount := len(containers)
-	c.Container
 	for _, container := range containers {
 		c.Container = append(c.Container, container.Names[0])
 	}

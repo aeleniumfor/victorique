@@ -2,13 +2,11 @@ package container
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
-	"github.com/victorique/app/handler"
 )
 
 // Containers is managed
@@ -43,6 +41,7 @@ func (c *Containers) GetContainerList() []string {
 	for _, container := range containers {
 		containerList = append(containerList, container.Names[0])
 	}
-	fmt.Println(containerList)
 	return containerList
 }
+
+

@@ -36,9 +36,15 @@ func New() (c *Containers) {
 
 // GetContainerList is multi host get container list
 func (c *Containers) GetContainerList() []string {
-	containers, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
-	for _, container := range containers {
-		c.Container = append(c.Container, container.Names[0])
+	list, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	for i:=0 ; i < len(list); i++ {
+		c.Container[i].Name = list[i].Names[0] 
+		c.Container[i].ID = list[i].ID 
 	}
-	return containerList
+	
+	ContainerNameList := []string{}
+	for _, container := range list {
+		ContainerNameList = append(ContainerNameList, container.Names[0])
+	}
+	return ContainerNameList
 }

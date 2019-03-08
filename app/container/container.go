@@ -2,7 +2,6 @@ package container
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -36,7 +35,7 @@ func New() (c *Containers) {
 }
 
 // GetContainerList is multi host get container list
-func (c *Containers) GetContainerList() []string {
+func (c *Containers) GetContainerList() {
 	list, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
 		List := Container{
@@ -45,13 +44,14 @@ func (c *Containers) GetContainerList() []string {
 			list[i].NetworkSettings.Networks["bridge"].IPAddress,
 		}
 		c.Container = append(c.Container, List)
-		fmt.Println()
-
 	}
+}
 
-	ContainerNameList := []string{}
-	for _, container := range list {
-		ContainerNameList = append(ContainerNameList, container.Names[0])
+// GetContainerNameList is Get Containers Name
+func (c *Containers) GetContainerNameList() []string {
+	containerNameList := []string{}
+	for i := 0; i < len(c.Container); i++ {
+		containerNameList = append(containerNameList, c.Container[i].Name)
 	}
-	return ContainerNameList
+	return containerNameList
 }

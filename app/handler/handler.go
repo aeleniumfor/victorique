@@ -2,6 +2,6 @@ package handler
 
 // ContainerHandler is pacage container
 type ContainerHandler interface {
-	GetContainerList() []string
+	GetContainerNameList() []string
 	//CreateContainer(string) string
 }

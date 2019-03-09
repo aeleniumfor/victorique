@@ -13,7 +13,7 @@ import (
 type Containers struct {
 	host      string
 	client    *client.Client
-	Container []Container // slice
+	Container []Container // Container List
 }
 
 // Container is managed

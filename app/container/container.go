@@ -34,7 +34,7 @@ func New(hostname string) (c *Containers) {
 }
 
 // GetContainerList is multi host get container list
-func (c *Containers) GetContainerList() {
+func (c *Containers) GetContainerList() *Containers {
 	list, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
 		List := Container{
@@ -44,6 +44,7 @@ func (c *Containers) GetContainerList() {
 		}
 		c.Container = append(c.Container, List)
 	}
+	return c
 }
 
 // GetContainerNameList is Get Containers Name

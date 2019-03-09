@@ -5,3 +5,10 @@ type ContainerHandler interface {
 	GetContainerNameList() []string
 	//CreateContainer(string) string
 }
+
+
+
+// ManagerHandler is Container Manger
+type ManagerHandler interface {
+	
+}

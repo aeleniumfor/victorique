@@ -24,9 +24,8 @@ type Container struct {
 }
 
 // New is manager
-func New() (c *Containers) {
+func New(hostname string) (c *Containers) {
 	tr := &http.Transport{}
-	hostname := "http://localhost:2376"
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		log.Println(err)
@@ -41,7 +40,7 @@ func (c *Containers) GetContainerList() {
 		List := Container{
 			list[i].Names[0],
 			list[i].ID,
-			list[i].NetworkSettings.Networks["bridge"].IPAddress,
+			list[i].NetworkSettings.Networks["bridge"].IPAddress, // 中身はmap
 		}
 		c.Container = append(c.Container, List)
 	}

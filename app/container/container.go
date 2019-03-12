@@ -5,26 +5,28 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/victorique/app/common"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
+	"github.com/victorique/app/common"
 )
 
-
+// DClient is docker client
+type DClient struct {
+	cli *client.Client
+}
 
 // New is manager
-func New(hostname string) (c *common.Containers) {
+func New(hostname string) (c *common.Containers, client *DClient) {
 	tr := &http.Transport{}
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
 		log.Println(err)
 	}
-
-	return &common.Containers{Host: hostname}
+	return &common.Containers{Host: hostname}, &DClient{cli: cli}
 }
 
 // GetContainerList is multi host get container list
-func (c *Containers) GetContainerList() *Containers {
+func (cli, c *common.Containers) GetContainerList() *Containers {
 	list, _ := c.client.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
 		List := Container{

@@ -1,10 +1,11 @@
 package container
 
 import (
-	"github.com/docker/docker/api/types"
 	"context"
 	"log"
 	"net/http"
+
+	"github.com/docker/docker/api/types"
 
 	"github.com/docker/docker/client"
 	"github.com/victorique/app/common"
@@ -14,6 +15,14 @@ import (
 type DockerClient struct {
 	cli *client.Client
 }
+
+// Container is に代入するすべを知らないので辛い
+type Container struct {
+	Name string
+	ID   string
+	IP   string
+}
+
 
 // New is manager
 func New(hostname string) (dockerClient *DockerClient) {
@@ -30,17 +39,15 @@ func New(hostname string) (dockerClient *DockerClient) {
 func (dockerClient *DockerClient) GetContainerList(c *common.Containers) {
 	list, _ := dockerClient.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
-		List := c.ContainerStructs{
-			list[i].Names[0],
-			list[i].ID,
-			list[i].NetworkSettings.Networks["bridge"].IPAddress, // 中身はmap
+		con := Container{
+			Name: list[i].Names[0],
+			ID: list[i].ID,
+			IP: list[i].NetworkSettings.Networks["bridge"].IPAddress, // 中身はmap
 		}
-		c.ContainerStructs = append(c.Container, List)
+		c.ContainerStructs = append(c.ContainerStructs,con)
 	}
-	c.Host = "test"
 }
-
-// // GetContainerNameList is Get Containers Name
+// GetContainerNameList is Get Containers Name
 // func (c *Containers) GetContainerNameList() []string {
 // 	containerNameList := []string{}
 // 	for i := 0; i < len(c.Container); i++ {

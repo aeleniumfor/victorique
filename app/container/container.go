@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/victorique/app/common"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
+	"github.com/victorique/app/common"
 )
 
 // DockerClient is docker client
@@ -27,8 +27,8 @@ func New(hostname string) (dc *DockerClient) {
 }
 
 // GetContainerList is multi host get container list
-func (dc *DockerClient) GetContainerList(c *common.Containers) {
-	list, _ := dc.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+func (dockerClient *DockerClient) GetContainerList(c *common.Containers) {
+	list, _ := dockerClient.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
 		List := c.Container{
 			list[i].Names[0],

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/victorique/app/handler"
+	"github.com/victorique/app/common"
 	"github.com/victorique/app/container"
 )
 
@@ -20,6 +20,7 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
-	var c handler.ContainerHandler = container.New()
-	c.GetContainerList()
+	containers := &common.Containers{}
+	var c = container.New("hoda.cong")
+	c.GetContainerList(containers)
 }

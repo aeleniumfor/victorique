@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/docker/docker/api/types/container"
+
 	"github.com/docker/docker/api/types"
 
 	"github.com/docker/docker/client"
@@ -17,7 +19,7 @@ type DockerClient struct {
 }
 
 // New is manager
-func New(hostname string) (dockerClient *DockerClient) {
+func New(hostname string) (dockerCli *DockerClient) {
 	tr := &http.Transport{}
 	cli, err := client.NewClient(hostname, client.DefaultVersion, &http.Client{Transport: tr}, map[string]string{})
 	if err != nil {
@@ -28,8 +30,8 @@ func New(hostname string) (dockerClient *DockerClient) {
 }
 
 // GetContainerList is multi host get container list
-func (dockerClient *DockerClient) GetContainerList(c *common.Containers) {
-	list, _ := dockerClient.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+func (dockerCli *DockerClient) GetContainerList(c *common.Containers) {
+	list, _ := dockerCli.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
 		container := common.Container{
 			Name: list[i].Names[0],
@@ -38,6 +40,15 @@ func (dockerClient *DockerClient) GetContainerList(c *common.Containers) {
 		}
 		c.ContainerStructs = append(c.ContainerStructs, container)
 	}
+}
+
+// CreateContainer is Greate Container
+func (dockerCli *DockerClient) CreateContainer() {
+	config := &container.Config{
+		Image: "alpine",
+		Cmd:   []string{"echo", "hello world"},
+	}
+	dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, "name")
 }
 
 // GetContainerNameList is Get Containers Name

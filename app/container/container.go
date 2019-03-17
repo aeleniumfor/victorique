@@ -1,6 +1,7 @@
 package container
 
 import (
+	"fmt"
 	"context"
 	"log"
 	"net/http"
@@ -44,11 +45,18 @@ func (dockerCli *DockerClient) GetContainerList(c *common.Containers) {
 
 // CreateContainer is Greate Container
 func (dockerCli *DockerClient) CreateContainer() {
+	// containerを作るだけの機能
 	config := &container.Config{
 		Image: "alpine",
 		Cmd:   []string{"echo", "hello world"},
 	}
-	dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, "name")
+	con, _ := dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, "ProjectName-ServiceName-ContainerName")
+	fmt.Println(con)
+}
+
+// StartContainer is start Created Container
+func (dockerCli *DockerClient) StartContainer() {
+	
 }
 
 // GetContainerNameList is Get Containers Name

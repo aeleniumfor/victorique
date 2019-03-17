@@ -16,14 +16,6 @@ type DockerClient struct {
 	cli *client.Client
 }
 
-// Container is に代入するすべを知らないので辛い
-type Container struct {
-	Name string
-	ID   string
-	IP   string
-}
-
-
 // New is manager
 func New(hostname string) (dockerClient *DockerClient) {
 	tr := &http.Transport{}
@@ -39,14 +31,15 @@ func New(hostname string) (dockerClient *DockerClient) {
 func (dockerClient *DockerClient) GetContainerList(c *common.Containers) {
 	list, _ := dockerClient.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
 	for i := 0; i < len(list); i++ {
-		con := Container{
+		container := common.Container{
 			Name: list[i].Names[0],
-			ID: list[i].ID,
-			IP: list[i].NetworkSettings.Networks["bridge"].IPAddress, // 中身はmap
+			ID:   list[i].ID,
+			IP:   list[i].NetworkSettings.Networks["bridge"].IPAddress,
 		}
-		c.ContainerStructs = append(c.ContainerStructs,con)
+		c.ContainerStructs = append(c.ContainerStructs, container)
 	}
 }
+
 // GetContainerNameList is Get Containers Name
 // func (c *Containers) GetContainerNameList() []string {
 // 	containerNameList := []string{}

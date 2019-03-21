@@ -1,16 +1,14 @@
 package container
 
 import (
-	"fmt"
 	"context"
 	"log"
 	"net/http"
 
-	"github.com/docker/docker/api/types/container"
-
 	"github.com/docker/docker/api/types"
-
+	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
+	"github.com/google/uuid"
 	"github.com/victorique/app/common"
 )
 
@@ -44,19 +42,27 @@ func (dockerCli *DockerClient) GetContainerList(c *common.Containers) {
 }
 
 // CreateContainer is Greate Container
-func (dockerCli *DockerClient) CreateContainer() {
+func (dockerCli *DockerClient) CreateContainer(c *common.Container) {
 	// containerを作るだけの機能
 	config := &container.Config{
 		Image: "alpine",
 		Cmd:   []string{"echo", "hello world"},
 	}
-	con, _ := dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, "ProjectName-ServiceName-ContainerName")
-	fmt.Println(con)
+	id := uuid.New()
+	projectName := "ProjectName"
+	serviceName := "ServiceName"
+	containerName := "ContainerName"
+	name := projectName + "-" + serviceName + "-" + containerName + id.String()
+	con, _ := dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, name)
+	c.ID = con.ID
 }
 
 // StartContainer is start Created Container
-func (dockerCli *DockerClient) StartContainer() {
-	
+func (dockerCli *DockerClient) StartContainer(c *common.Container) {
+	dockerCli.cli.ContainerStart(context.Background(), c.ID, types.ContainerStartOptions{})
+	inspect, _ := dockerCli.cli.ContainerInspect(context.Background(), c.ID)
+	c.Name = inspect.Name
+	c.IP = inspect.NetworkSettings.Networks["bridge"].IPAddress
 }
 
 // GetContainerNameList is Get Containers Name

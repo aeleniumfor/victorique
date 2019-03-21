@@ -12,5 +12,3 @@ type Container struct {
 	ID   string
 	IP   string
 }
-
-

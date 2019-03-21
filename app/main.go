@@ -24,9 +24,13 @@ func main() {
 
 	containers := &common.Containers{}
 	co := &common.Container{}
-	cli := container.New("http://localhost:4243")
+	containers.Host = "http://localhost:4243"
+	cli := container.New(containers.Host)
 	cli.GetContainerList(containers)
-	cli.CreateContainer(co)
-	cli.StartContainer(co)
+	// cli.CreateContainer(co)
+	// cli.StartContainer(co)
 	fmt.Println(co)
+	fmt.Println(*containers)
+
+	// statestore.SetKey()
 }

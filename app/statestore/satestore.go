@@ -17,12 +17,11 @@ func SetKey() {
 		// handle error!
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 5)
-	resp, err := cli.Put(ctx, "sample_key", "sample_value")
+	res, err := cli.Put(ctx, "sample_key", "sample_value")
 	cancel()
 	if err != nil {
 		// handle error!
 	}
-	fmt.Println(resp)
-
+	fmt.Println(res)
 	defer cli.Close()
 }

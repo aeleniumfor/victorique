@@ -35,7 +35,9 @@ func (dockerCli *DockerClient) GetContainerList(c *common.Containers) {
 		container := common.Container{
 			Name: list[i].Names[0],
 			ID:   list[i].ID,
-			IP:   list[i].NetworkSettings.Networks["bridge"].IPAddress,
+		}
+		for key, _ := range list[i].NetworkSettings.Networks {
+			container.IP = list[i].NetworkSettings.Networks[key].IPAddress
 		}
 		c.ContainerStructs = append(c.ContainerStructs, container)
 	}

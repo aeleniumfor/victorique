@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+
+	"github.com/victorique/app/common"
 	"github.com/victorique/app/container"
 )
 
@@ -19,9 +22,11 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
-	c := container.ContainersNew()
-	host := []string{"localhost", "127.0.0.1", "localhost"}
-	c.SetHostList(host)
-	c.GetMultiHostContainerList()
-	c.DecisionPriority()
+	containers := &common.Containers{}
+	co := &common.Container{}
+	cli := container.New("http://localhost:4243")
+	cli.GetContainerList(containers)
+	cli.CreateContainer(co)
+	cli.StartContainer(co)
+	fmt.Println(co)
 }

@@ -1,6 +1,7 @@
 package container
 
 import (
+	"fmt"
 	"context"
 	"log"
 	"net/http"
@@ -36,8 +37,9 @@ func (dockerCli *DockerClient) GetContainerList(c *common.Containers) {
 			Name: list[i].Names[0],
 			ID:   list[i].ID,
 		}
-		for key, _ := range list[i].NetworkSettings.Networks {
+		for key, j:= range list[i].NetworkSettings.Networks {
 			container.IP = list[i].NetworkSettings.Networks[key].IPAddress
+			fmt.Println(j)
 		}
 		c.ContainerStructs = append(c.ContainerStructs, container)
 	}

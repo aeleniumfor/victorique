@@ -24,3 +24,5 @@
 /vendor
 Gopkg.*
 /etcd/dockerfile
+go.mod
+go.sum

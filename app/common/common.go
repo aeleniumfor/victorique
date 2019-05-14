@@ -12,3 +12,8 @@ type Container struct {
 type ResCotainerIDList struct {
 	ContainerID []string `json:"Container_ID_List"`
 }
+
+// ResCotainerNameList is controll network
+type ResCotainerNameList struct {
+	ContainerName []string `json:"Container_Name_List"`
+}

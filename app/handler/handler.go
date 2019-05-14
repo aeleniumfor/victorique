@@ -17,3 +17,13 @@ func HndlerGetContainerIDList() echo.HandlerFunc {
 		return c.JSON(200,idlist)
     }
 }
+
+// HndlerGetContainerNameList is GetContainerIDList 
+func HndlerGetContainerNameList() echo.HandlerFunc {
+    return func(c echo.Context) error {
+		cli := container.New("http://localhost:2376")
+		namelist := new(common.ResCotainerNameList)
+		namelist.ContainerName = cli.GetContainerNameList()
+		return c.JSON(200,namelist)
+    }
+}

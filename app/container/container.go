@@ -1,6 +1,7 @@
 package container
 
 import (
+	"fmt"
 	"context"
 	"log"
 	"net/http"
@@ -34,6 +35,17 @@ func (dockerCli *DockerClient) GetContainerIDList() []string {
 	containerlist := []string{}
 	for i := 0; i < len(list); i++ {
 		containerlist = append(containerlist, list[i].ID)
+	}
+	return containerlist
+}
+
+// GetContainerNameList is multi host get container list
+func (dockerCli *DockerClient) GetContainerNameList() []string {
+	list, _ := dockerCli.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	containerlist := []string{}
+	for i := 0; i < len(list); i++ {
+		fmt.Println(list[i].Names)
+		containerlist = append(containerlist, list[i].Names[0])
 	}
 	return containerlist
 }

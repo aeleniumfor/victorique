@@ -1,8 +1,10 @@
 package main
 
 import (
+	"github.com/labstack/echo"
 	"fmt"
 	"github.com/victorique/app/container"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
@@ -20,8 +22,14 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
+
 	cli := container.New("http://localhost:2376")
-	fmt.Println(cli.GetContainerList())
+	fmt.Println(cli.GetContainerIDList())
+	s := echo.New()
+	s.Use(middleware.Logger())
+    s.Use(middleware.Recover())
+    s.GET("/hello", handler.MainPage())
+    s.Start(":1323")
 	// cli.CreateContainer(co)
 	// cli.StartContainer(co)
 	// statestore.SetKey()

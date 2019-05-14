@@ -1,7 +1,6 @@
 package container
 
 import (
-	"fmt"
 	"context"
 	"log"
 	"net/http"
@@ -29,20 +28,14 @@ func New(hostname string) (dockerCli *DockerClient) {
 	return &DockerClient{cli: cli}
 }
 
-// GetContainerList is multi host get container list
-func (dockerCli *DockerClient) GetContainerList(c *common.Containers) {
+// GetContainerIDList is multi host get container list
+func (dockerCli *DockerClient) GetContainerIDList() []string {
 	list, _ := dockerCli.cli.ContainerList(context.Background(), types.ContainerListOptions{All: true})
+	containerlist := []string{}
 	for i := 0; i < len(list); i++ {
-		container := common.Container{
-			Name: list[i].Names[0],
-			ID:   list[i].ID,
-		}
-		for key, j:= range list[i].NetworkSettings.Networks {
-			container.IP = list[i].NetworkSettings.Networks[key].IPAddress
-			fmt.Println(j)
-		}
-		c.ContainerStructs = append(c.ContainerStructs, container)
+		containerlist = append(containerlist, list[i].ID)
 	}
+	return containerlist
 }
 
 // CreateContainer is Greate Container

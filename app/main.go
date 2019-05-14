@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/victorique/app/common"
 	"github.com/victorique/app/container"
 )
 
@@ -22,15 +20,9 @@ func main() {
 	// 	fmt.Println(i)
 	// }
 
-	containers := &common.Containers{}
-	co := &common.Container{}
-	containers.Host = "http://localhost:4243"
-	cli := container.New(containers.Host)
-	cli.GetContainerList(containers)
+	cli := container.New("http://localhost:2376")
+	fmt.Println(cli.GetContainerList())
 	// cli.CreateContainer(co)
 	// cli.StartContainer(co)
-	fmt.Println(co)
-	fmt.Println(*containers)
-
 	// statestore.SetKey()
 }

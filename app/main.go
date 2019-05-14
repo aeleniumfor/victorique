@@ -27,7 +27,6 @@ func main() {
 	fmt.Println(cli.GetContainerIDList())
 	s := echo.New()
 	s.Use(middleware.Logger())
-    s.Use(middleware.Recover())
     s.GET("/hello", handler.MainPage())
     s.Start(":1323")
 	// cli.CreateContainer(co)

@@ -11,8 +11,8 @@ const(
 	ContainerRemote string = "http://localhost:2376"
 )
 
-// HndlerGetContainerIDList is GetContainerIDList 
-func HndlerGetContainerIDList() echo.HandlerFunc {
+// HandlerGetContainerIDList is GetContainerIDList 
+func HandlerGetContainerIDList() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
 		idlist := new(common.ResCotainerIDList)
@@ -21,8 +21,8 @@ func HndlerGetContainerIDList() echo.HandlerFunc {
     }
 }
 
-// HndlerGetContainerNameList is GetContainerIDList 
-func HndlerGetContainerNameList() echo.HandlerFunc {
+// HandlerGetContainerNameList is GetContainerIDList 
+func HandlerGetContainerNameList() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
 		namelist := new(common.ResCotainerNameList)

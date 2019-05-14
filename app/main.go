@@ -25,8 +25,8 @@ func main() {
 	
 	s := echo.New()
 	s.Use(middleware.Logger())
-	s.GET("/container/list/id", handler.HndlerGetContainerIDList())
-	s.GET("/container/list/name", handler.HndlerGetContainerNameList())
+	s.GET("/container/list/id", handler.HandlerGetContainerIDList())
+	s.GET("/container/list/name", handler.HandlerGetContainerNameList())
 	s.Start(":1323")
 	// cli.CreateContainer(co)
 	// cli.StartContainer(co)

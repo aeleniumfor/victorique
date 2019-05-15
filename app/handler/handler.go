@@ -52,8 +52,8 @@ func ContainerInfoFromName() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
 		containerJSON :=new(common.Container)
-		containerID := c.Param("name")
-		containerInfo := cli.GetContainerInfoFromID(containerID)
+		containerName := c.Param("name")
+		containerInfo := cli.GetContainerInfoFromName(containerName)
 		containerJSON.ID = containerInfo.ID
 		containerJSON.Name = containerInfo.Name
 		containerJSON.NetNamespace = containerInfo.NetNamespace

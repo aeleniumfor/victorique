@@ -30,3 +30,13 @@ func HandlerGetContainerNameList() echo.HandlerFunc {
 		return c.JSON(200,namelist)
     }
 }
+
+// HandlerContainerID is ContainerID inspect handler
+func HandlerContainerID() echo.HandlerFunc {
+    return func(c echo.Context) error {
+		cli := container.New(ContainerRemote)
+		namelist := new(common.ResCotainerNameList)
+		namelist.ContainerName = cli.
+		return c.JSON(200,namelist)
+    }
+}

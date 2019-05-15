@@ -1,19 +1,23 @@
 package common
 
-// Container is managed
+// Container is 
 type Container struct {
 	Name         string
 	ID           string
-	IP           string
 	NetNamespace string
 }
 
-// ResCotainerIDList is controll network
+// ResCotainerIDList is 
 type ResCotainerIDList struct {
 	ContainerID []string `json:"Container_ID_List"`
 }
 
-// ResCotainerNameList is controll network
+// ResCotainerNameList is 
 type ResCotainerNameList struct {
 	ContainerName []string `json:"Container_Name_List"`
+}
+
+// ReqContainerID is 
+type ReqContainerID struct {
+	ContainerID []string `json:"Container_ID"`
 }

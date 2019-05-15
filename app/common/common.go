@@ -2,19 +2,19 @@ package common
 
 // Container is 
 type Container struct {
-	Name         string
-	ID           string
-	NetNamespace string
+	Name         string `json:"Container_Name"`
+	ID           string `json:"Container_ID"`
+	NetNamespace string `json:"Container_NetNamespace"`
 }
 
 // ResCotainerIDList is 
 type ResCotainerIDList struct {
-	ContainerID []string `json:"Container_ID_List"`
+	ContainerIDList []string `json:"Container_ID_List"`
 }
 
 // ResCotainerNameList is 
 type ResCotainerNameList struct {
-	ContainerName []string `json:"Container_Name_List"`
+	ContainerNameList []string `json:"Container_Name_List"`
 }
 
 // ReqContainerID is 

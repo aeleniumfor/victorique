@@ -46,3 +46,18 @@ func ContainerInfoFromID() echo.HandlerFunc {
 		return c.JSON(200,containerJSON)
     }
 }
+
+// ContainerInfoFromName is ContainerID inspect handler
+func ContainerInfoFromName() echo.HandlerFunc {
+    return func(c echo.Context) error {
+		cli := container.New(ContainerRemote)
+		containerJSON :=new(common.Container)
+		containerID := c.Param("name")
+		containerInfo := cli.GetContainerInfoFromID(containerID)
+		containerJSON.ID = containerInfo.ID
+		containerJSON.Name = containerInfo.Name
+		containerJSON.NetNamespace = containerInfo.NetNamespace
+
+		return c.JSON(200,containerJSON)
+    }
+}

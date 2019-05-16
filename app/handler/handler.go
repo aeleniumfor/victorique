@@ -15,6 +15,7 @@ const(
 func GetContainerIDList() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
+		
 		idlist := new(common.ResCotainerIDList)
 		idlist.ContainerIDList = cli.GetContainerIDList()
 		return c.JSON(200,idlist)
@@ -25,6 +26,7 @@ func GetContainerIDList() echo.HandlerFunc {
 func GetContainerNameList() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
+
 		namelist := new(common.ResCotainerNameList)
 		namelist.ContainerNameList = cli.GetContainerNameList()
 		return c.JSON(200,namelist)
@@ -35,14 +37,10 @@ func GetContainerNameList() echo.HandlerFunc {
 func ContainerInfoFromID() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
-		containerJSON :=new(common.Container)
 
 		containerID := c.Param("id")
-		containerInfo := cli.GetContainerInfoFromID(containerID)
-		containerJSON.ID = containerInfo.ID
-		containerJSON.Name = containerInfo.Name
-		containerJSON.NetNamespace = containerInfo.NetNamespace
-
+		containerJSON :=new(common.Container)		
+		containerJSON = cli.GetContainerInfoFromID(containerID)
 		return c.JSON(200,containerJSON)
     }
 }
@@ -53,11 +51,8 @@ func ContainerInfoFromName() echo.HandlerFunc {
 		cli := container.New(ContainerRemote)
 		
 		containerName := c.Param("name")
-		containerInfo := cli.GetContainerInfoFromName(containerName)
 		containerJSON :=new(common.Container)
-		containerJSON.ID = containerInfo.ID
-		containerJSON.Name = containerInfo.Name
-		containerJSON.NetNamespace = containerInfo.NetNamespace
+		containerJSON = cli.GetContainerInfoFromName(containerName)
 		return c.JSON(200,containerJSON)
     }
 }
@@ -65,10 +60,11 @@ func ContainerInfoFromName() echo.HandlerFunc {
 // CreateContainer is Create container handler
 func CreateContainer() echo.HandlerFunc {
 	return func(c echo.Context) error {
-		containerName := c.Param("name")
 		cli := container.New(ContainerRemote)
-		containerJSON :=new(common.Container)
+
+		containerName := c.Param("name")
 		containerID := cli.CreateContainer(containerName) 
+		containerJSON :=new(common.Container)
 		containerJSON = cli.GetContainerInfoFromID(containerID)
 		return c.JSON(200,containerJSON)
 	}

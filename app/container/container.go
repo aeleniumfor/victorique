@@ -57,6 +57,7 @@ func (dockerCli *DockerClient) GetContainerInfoFromID(containerID string) *commo
 	c.ID = inspect.ID
 	c.Name = inspect.Name
 	c.NetNamespace = inspect.NetworkSettings.SandboxKey
+	c.Status = inspect.State.Status
 	return c
 }
 

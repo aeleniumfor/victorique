@@ -68,7 +68,7 @@ func (dockerCli *DockerClient) GetContainerInfoFromName(containerName string) *c
 }
 
 // CreateContainer is Greate Container
-func (dockerCli *DockerClient) CreateContainer(containerName string) (string,error) {
+func (dockerCli *DockerClient) CreateContainer(containerName string) string {
 	// containerを作るだけの機能
 	config := &container.Config{
 		Image: "alpine",
@@ -78,9 +78,10 @@ func (dockerCli *DockerClient) CreateContainer(containerName string) (string,err
 	name := containerName + "-" + id
 	createdContainer, err := dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, name)
 	if err != nil {
-		return "", err
+		log.Println(err)
+		return ""
 	}
-	return createdContainer.ID,nil
+	return createdContainer.ID
 }
 
 // StartContainer is start Created Container

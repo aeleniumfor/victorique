@@ -1,23 +1,24 @@
 package common
 
-// Container is 
+// Container is
 type Container struct {
 	Name         string `json:"Container_Name"`
 	ID           string `json:"Container_ID"`
 	NetNamespace string `json:"Container_NetNamespace"`
+	Status       string `json:"Container_Status"`
 }
 
-// ResCotainerIDList is 
+// ResCotainerIDList is
 type ResCotainerIDList struct {
 	ContainerIDList []string `json:"Container_ID_List"`
 }
 
-// ResCotainerNameList is 
+// ResCotainerNameList is
 type ResCotainerNameList struct {
 	ContainerNameList []string `json:"Container_Name_List"`
 }
 
-// ReqContainerID is 
+// ReqContainerID is
 type ReqContainerID struct {
 	ContainerID []string `json:"Container_ID"`
 }

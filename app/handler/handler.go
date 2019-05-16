@@ -67,3 +67,15 @@ func CreateContainer() echo.HandlerFunc {
 		return c.JSON(200,containerJSON)
 	}
 }
+
+// StartContainer is Create container handler
+func StartContainer() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cli := container.New(ContainerRemote)
+
+		containerID := c.Param("id")
+		containerJSON :=new(common.Container)
+		containerJSON = cli.StartContainer(containerID)
+		return c.JSON(200,containerJSON)
+	}
+}

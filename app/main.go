@@ -28,8 +28,8 @@ func main() {
 	s.GET("/container/id/:id", handler.ContainerInfoFromID())
 	s.GET("/container/name/:name", handler.ContainerInfoFromName())
 
-	s.POST("/container/name/:name", handler.CreateContainer())
-	s.POST("/container/name/:name", handler.CreateContainer())
+	s.POST("/container/create/:name", handler.CreateContainer())
+	s.POST("/container/start/:name", handler.CreateContainer())
 	s.Start(":1323")
 	// cli.CreateContainer(co)
 	// cli.StartContainer(co)

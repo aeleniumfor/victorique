@@ -57,7 +57,6 @@ func ContainerInfoFromName() echo.HandlerFunc {
 		containerJSON.ID = containerInfo.ID
 		containerJSON.Name = containerInfo.Name
 		containerJSON.NetNamespace = containerInfo.NetNamespace
-
 		return c.JSON(200,containerJSON)
     }
 }

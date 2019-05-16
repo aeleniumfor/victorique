@@ -60,6 +60,13 @@ func (dockerCli *DockerClient) GetContainerInfoFromID(containerID string) *commo
 	return c
 }
 
+
+// GetContainerInfoFromName is
+func (dockerCli *DockerClient) GetContainerInfoFromName(containerName string) *common.Container {
+	c := new(common.Container)
+	return c
+}
+
 // CreateContainer is Greate Container
 func (dockerCli *DockerClient) CreateContainer(c *common.Container) {
 	// containerを作るだけの機能
@@ -92,3 +99,11 @@ func (dockerCli *DockerClient) StartContainer(c *common.Container) {
 // 	}
 // 	return containerNameList
 // }
+
+
+// docker run \
+//   -d \
+//   -e ENV_DOCKER_REGISTRY_HOST=127.0.0.1 \
+//   -e ENV_DOCKER_REGISTRY_PORT=5000 \
+//   -p 8080:80 \
+//   konradkleine/docker-registry-frontend:v2

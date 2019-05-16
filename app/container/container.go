@@ -61,7 +61,6 @@ func (dockerCli *DockerClient) GetContainerInfoFromID(containerID string) *commo
 	return c
 }
 
-
 // GetContainerInfoFromName is
 func (dockerCli *DockerClient) GetContainerInfoFromName(containerName string) *common.Container {
 	c := new(common.Container)
@@ -75,18 +74,22 @@ func (dockerCli *DockerClient) CreateContainer(containerName string) string {
 		Image: "alpine",
 		Cmd:   []string{"echo", "hello world"},
 	}
-	id := uuid.New()
-	name := containerName + id.String()
+	id := uuid.New().String()
+	name := containerName + "-" + id
 	createdContainer, _ := dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, name)
 	return createdContainer.ID
 }
 
 // StartContainer is start Created Container
-func (dockerCli *DockerClient) StartContainer(c *common.Container) {
-	dockerCli.cli.ContainerStart(context.Background(), c.ID, types.ContainerStartOptions{})
-	inspect, _ := dockerCli.cli.ContainerInspect(context.Background(), c.ID)
+func (dockerCli *DockerClient) StartContainer(containerID string) *common.Container {
+	dockerCli.cli.ContainerStart(context.Background(), containerID, types.ContainerStartOptions{})
+	inspect, _ := dockerCli.cli.ContainerInspect(context.Background(), containerID)
+	c := new(common.Container)
+	c.ID = inspect.ID
 	c.Name = inspect.Name
-	// c.IP = inspect.NetworkSettings.Networks["bridge"].IPAddress
+	c.NetNamespace = inspect.NetworkSettings.SandboxKey
+	c.Status = inspect.State.Status
+	return c
 }
 
 // GetContainerNameList is Get Containers Name
@@ -97,7 +100,6 @@ func (dockerCli *DockerClient) StartContainer(c *common.Container) {
 // 	}
 // 	return containerNameList
 // }
-
 
 // docker run \
 //   -d \

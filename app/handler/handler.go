@@ -51,12 +51,25 @@ func ContainerInfoFromID() echo.HandlerFunc {
 func ContainerInfoFromName() echo.HandlerFunc {
     return func(c echo.Context) error {
 		cli := container.New(ContainerRemote)
-		containerJSON :=new(common.Container)
+		
 		containerName := c.Param("name")
 		containerInfo := cli.GetContainerInfoFromName(containerName)
+		containerJSON :=new(common.Container)
 		containerJSON.ID = containerInfo.ID
 		containerJSON.Name = containerInfo.Name
 		containerJSON.NetNamespace = containerInfo.NetNamespace
 		return c.JSON(200,containerJSON)
     }
+}
+
+// CreateContainer is Create container handler
+func CreateContainer() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		containerName := c.Param("name")
+		cli := container.New(ContainerRemote)
+		containerJSON :=new(common.Container)
+		containerID := cli.CreateContainer(containerName) 
+		containerJSON = cli.GetContainerInfoFromID(containerID)
+		return c.JSON(200,containerJSON)
+	}
 }

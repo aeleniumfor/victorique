@@ -100,7 +100,6 @@ func (dockerCli *DockerClient) StartContainer(containerID string) *common.Contai
 // DeleteContainer is Container Delete
 func (dockerCli *DockerClient) DeleteContainer(containerID string) string {
 	err := dockerCli.cli.ContainerRemove(context.Background(), containerID, types.ContainerRemoveOptions{})
-	fmt.Println(err)
 	if err != nil {
 		return err.Error()
 	}

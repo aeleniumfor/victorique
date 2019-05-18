@@ -88,13 +88,22 @@ func (dockerCli *DockerClient) CreateContainer(containerName string) string {
 func (dockerCli *DockerClient) StartContainer(containerID string) *common.Container {
 	dockerCli.cli.ContainerStart(context.Background(), containerID, types.ContainerStartOptions{})
 	inspect, _ := dockerCli.cli.ContainerInspect(context.Background(), containerID)
-	
+
 	c := new(common.Container)
 	c.ID = inspect.ID
 	c.Name = inspect.Name
 	c.NetNamespace = inspect.NetworkSettings.SandboxKey
 	c.Status = inspect.State.Status
 	return c
+}
+
+// DeleteContainer is Container Delete
+func (dockerCli *DockerClient) DeleteContainer(containerID string) string {
+	err := dockerCli.cli.ContainerRemove(context.Background(), containerID, types.ContainerRemoveOptions{})
+	if err != nil {
+		return err.Error()
+	}
+	return "ok"
 }
 
 // GetContainerNameList is Get Containers Name

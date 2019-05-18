@@ -117,15 +117,6 @@ func (dockerCli *DockerClient) StopContainer(containerID string) *common.Contain
 	return c
 }
 
-// GetContainerNameList is Get Containers Name
-// func (c *Containers) GetContainerNameList() []string {
-// 	containerNameList := []string{}
-// 	for i := 0; i < len(c.Container); i++ {
-// 		containerNameList = append(containerNameList, c.Container[i].Name)
-// 	}
-// 	return containerNameList
-// }
-
 // docker run \
 //   -d \
 //   -e ENV_DOCKER_REGISTRY_HOST=127.0.0.1 \

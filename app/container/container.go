@@ -71,8 +71,7 @@ func (dockerCli *DockerClient) GetContainerInfoFromName(containerName string) *c
 func (dockerCli *DockerClient) CreateContainer(containerName string) string {
 	// containerを作るだけの機能
 	config := &container.Config{
-		Image: "alpine",
-		Cmd:   []string{"echo", "hello world"},
+		Image: "rethinkdb",
 	}
 	id := uuid.New().String()
 	name := containerName + "-" + id

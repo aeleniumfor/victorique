@@ -22,3 +22,8 @@ type ResCotainerNameList struct {
 type ReqContainerID struct {
 	ContainerID []string `json:"Container_ID"`
 }
+
+// ResContainerDelMsg is delete container message
+type ResContainerDelMsg struct {
+	Msg string `json:"Container_Delete_Msg"`
+}

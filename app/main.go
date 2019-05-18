@@ -30,7 +30,9 @@ func main() {
 
 	s.POST("/container/create/:name", handler.CreateContainer())
 	s.POST("/container/start/:id", handler.StartContainer())
-	s.Start(":1323")
+
+	s.DELETE("/container/delete/:id",handler.DeleteContainer())
+	s.Start(":8080")
 	// cli.CreateContainer(co)
 	// cli.StartContainer(co)
 	// statestore.SetKey()

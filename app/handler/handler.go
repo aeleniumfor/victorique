@@ -92,3 +92,14 @@ func DeleteContainer() echo.HandlerFunc {
 		return c.JSON(200, containerJSON)
 	}
 }
+
+// StopContainer is Stop container handler
+func StopContainer() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		cli := container.New(ContainerRemote)
+		containerID := c.Param("id")
+		containerJSON := new(common.Container)
+		containerJSON = cli.StopContainer(containerID)
+		return c.JSON(200, containerJSON)
+	}
+}

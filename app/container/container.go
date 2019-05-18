@@ -106,6 +106,18 @@ func (dockerCli *DockerClient) DeleteContainer(containerID string) string {
 	return "ok"
 }
 
+// StopContainer is Container Stop
+func (dockerCli *DockerClient) StopContainer(containerID string) *common.Container {
+	dockerCli.cli.ContainerStop(context.Background(), containerID, nil)
+	inspect, _ := dockerCli.cli.ContainerInspect(context.Background(), containerID)
+	c := new(common.Container)
+	c.ID = inspect.ID
+	c.Name = inspect.Name
+	c.NetNamespace = inspect.NetworkSettings.SandboxKey
+	c.Status = inspect.State.Status
+	return c
+}
+
 // GetContainerNameList is Get Containers Name
 // func (c *Containers) GetContainerNameList() []string {
 // 	containerNameList := []string{}

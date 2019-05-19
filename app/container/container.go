@@ -9,7 +9,6 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
-	"github.com/google/uuid"
 	"github.com/victorique/app/common"
 )
 
@@ -73,8 +72,7 @@ func (dockerCli *DockerClient) CreateContainer(containerName string) string {
 	config := &container.Config{
 		Image: "rethinkdb",
 	}
-	id := uuid.New().String()
-	name := containerName + "-" + id
+	name := containerName
 	createdContainer, err := dockerCli.cli.ContainerCreate(context.Background(), config, nil, nil, name)
 	if err != nil {
 		log.Println(err)

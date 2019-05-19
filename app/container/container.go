@@ -114,10 +114,3 @@ func (dockerCli *DockerClient) StopContainer(containerID string) *common.Contain
 	c.Status = inspect.State.Status
 	return c
 }
-
-// docker run \
-//   -d \
-//   -e ENV_DOCKER_REGISTRY_HOST=127.0.0.1 \
-//   -e ENV_DOCKER_REGISTRY_PORT=5000 \
-//   -p 8080:80 \
-//   konradkleine/docker-registry-frontend:v2
